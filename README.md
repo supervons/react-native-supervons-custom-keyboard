@@ -1,12 +1,16 @@
 
 # react-native-supervons-custom-keyboard
 English  [简体中文](/README_CN.md "中文介绍")
-## Thanks
+## Summary
 ```
+Developed based on react-native-security-keyboard,add：
+1. Uppercase and lowercase letters
+2. Character
+3. Key response
+4. Switch keyboard type
+5. Randomly arrange the keyboard
 
-Developed based on react-native-security-keyboard, adding uppercase and lowercase letters, characters, key responses, and switching keyboard types;
-
-Thanks to yanzhandong for open source sharing
+Thanks yanzhandong source sharing
 ```
 ## Preview
 ![avatar](preview/demo.gif)

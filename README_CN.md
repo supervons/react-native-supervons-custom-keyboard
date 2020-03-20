@@ -2,9 +2,14 @@
 # react-native-supervons-custom-keyboard
 [English](/README.md "english readme")  简体中文
 
-## 感谢
+## 综述
 ```
-基于 react-native-security-keyboard 开发，增加了大小写字母、字符、按键响应以及切换键盘类型；
+基于 react-native-security-keyboard 开发，增加：
+1. 大小写字母
+2. 字符
+3. 按键响应
+4. 切换键盘类型
+5. 随机排列键盘
 
 感谢 yanzhandong 的开源分享
 ```
