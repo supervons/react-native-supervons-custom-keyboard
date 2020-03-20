@@ -9,9 +9,7 @@ Developed based on react-native-security-keyboard, adding uppercase and lowercas
 Thanks to yanzhandong for open source sharing
 ```
 ## Preview
-```
-![avatar](http://baidu.com/pic/doge.png)
-```
+![avatar](preview/demo.gif)
 ## Getting started
 
 `$ npm install react-native-supervons-custom-keyboard --save`
