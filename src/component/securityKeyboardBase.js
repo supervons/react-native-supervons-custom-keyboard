@@ -91,11 +91,11 @@ class SecurityKeyboard extends Component {
     this.changeKey();
   }
   changeKey() {
-    const currentNumArr = this.shuffle(this.state.numArr);
+    const currentNumArr = this.props.random ? this.shuffle(this.state.numArr) : this.state.numArr;
     currentNumArr.push(...['.', 'del', 'ABC', '!?#']);
-    const currentStringArr = this.shuffle(this.state.stringArr);
+    const currentStringArr = this.props.random ? this.shuffle(this.state.stringArr) : this.state.stringArr;
     currentStringArr.push(...['change', '123', '!?#', 'del']);
-    const currentSymbolArr = this.shuffle(this.state.symbolArr);
+    const currentSymbolArr = this.props.random ? this.shuffle(this.state.symbolArr) : this.state.symbolArr;
     currentSymbolArr.push(...['.', 'ABC', '123', 'del']);
     this.setState({
       stringArr: currentStringArr,
@@ -330,6 +330,7 @@ class SecurityKeyboard extends Component {
   renderNum() {
     let numArr = [];
     let addNum = 0;
+    // Determine the keyboard type
     if (this.state.keyboardType === 'number') {
       addNum = 4;
       numArr = this.state.numArr;
