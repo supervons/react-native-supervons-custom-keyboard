@@ -60,8 +60,8 @@ class SecurityKeyboardInput extends Component {
     if (this.props.secureTextEntry) {
       return this.state.valueArr.map((item, index) => {
         return (
-            <Text style={[styles.value, this.props.valueStyle]} key={index}>
-              *
+            <Text style={[styles.value, this.props.secureTextStyle]} key={index}>
+              ●
             </Text>
         );
       });

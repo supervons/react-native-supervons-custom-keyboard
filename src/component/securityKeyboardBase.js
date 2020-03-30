@@ -29,6 +29,7 @@ class SecurityKeyboard extends Component {
     style: PropTypes.any, //外壳样式
     valueStyle: PropTypes.any, //内容样式
     cursorStyle: PropTypes.any, // 闪动光标样式
+    secureTextStyle: PropTypes.any, // 密码框圆点光标样式
     regs: PropTypes.func, //校验函数
     onChangeText: PropTypes.func, //内容更改后的回调
     onFocus: PropTypes.func, //得到焦点后的回调
@@ -517,6 +518,7 @@ class SecurityKeyboard extends Component {
               style={this.props.style}
               valueStyle={this.props.valueStyle}
               cursorStyle={this.props.cursorStyle}
+              secureTextStyle={this.props.secureTextStyle}
               show={this.show.bind(this)}
               placeholder={this.props.placeholder}
               placeholderTextColor={this.props.placeholderTextColor}
