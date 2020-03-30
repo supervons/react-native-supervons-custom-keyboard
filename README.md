@@ -1,6 +1,10 @@
 
 # react-native-supervons-custom-keyboard
 English  [简体中文](/README_CN.md "中文介绍")
+
+# github（welcome star━(*｀∀´*)ノ亻!）
+https://github.com/supervons/react-native-supervons-custom-keyboard
+
 ## Summary
 ```
 Developed based on react-native-security-keyboard,add：
@@ -39,10 +43,14 @@ export default class MainPage extends Component {
       <View style={{ flex: 1, backgroundColor: '#ffffff' }}>
         <View style={{ height: 150 }}>
           <RNSVCustomKeyboard
+            style={{ width: width * 0.96, borderBottomColor: '#939DA6', borderBottomWidth: 1 }}
+            secureTextEntry={true}
             random={true}
+            valueStyle={{ fontSize: 18, left: 1 }}
+            secureTextStyle={{ fontSize: 10 }}
             keyboardType={'string'}
-            placeholder={'请输入'}
-            placeholderTextColor={'#E0E0E0'}
+            placeholder={'密码'}
+            placeholderTextColor={'#CACACB'}
             onChangeText={text => this.setState({ inputValue: text })}
           />
           <Button title={'outPut'} onPress={() => alert(this.state.inputValue)} />
