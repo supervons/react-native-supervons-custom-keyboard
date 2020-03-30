@@ -13,8 +13,7 @@ const styles = StyleSheet.create({
   textInputWrap: {
     height: 40,
     flexDirection: 'row',
-    alignItems: 'center',
-    paddingLeft: px2dp(10)
+    alignItems: 'center'
   },
   cursorWrap: {
     height: 40,
@@ -22,8 +21,9 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   cursor: {
-    fontSize: 30,
-    fontWeight: '300'
+    fontSize: 25,
+    color: '#4970EA',
+    left: px2dp(-2)
   },
   placeholder: {
     color: '#C4C4C4',

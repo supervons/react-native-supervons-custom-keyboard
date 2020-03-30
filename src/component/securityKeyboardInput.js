@@ -100,7 +100,7 @@ class SecurityKeyboardInput extends Component {
             ) : null}
             {!this.props.cursorLock && !this.props.caretHidden ? (
                 <Animated.View style={[styles.cursorWrap, { opacity: this.state.fadeAnim }]}>
-                  <Text style={styles.cursor}>|</Text>
+                  <Text style={[styles.cursor, this.props.cursorStyle || {}]}>|</Text>
                 </Animated.View>
             ) : null}
           </TouchableOpacity>

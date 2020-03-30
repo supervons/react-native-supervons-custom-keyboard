@@ -28,6 +28,7 @@ class SecurityKeyboard extends Component {
     secureTextEntry: PropTypes.bool, //是否开启密码模式
     style: PropTypes.any, //外壳样式
     valueStyle: PropTypes.any, //内容样式
+    cursorStyle: PropTypes.any, // 闪动光标样式
     regs: PropTypes.func, //校验函数
     onChangeText: PropTypes.func, //内容更改后的回调
     onFocus: PropTypes.func, //得到焦点后的回调
@@ -156,7 +157,7 @@ class SecurityKeyboard extends Component {
     this.setChangeDateNum();
     // currentNumArr.push(...['.', 'del', 'ABC', '!?#']);
     this.stringArr = this.props.random ? this.shuffle(this.stringArr) : this.stringArr;
-    // 小写数组转大写，保持随机位置统一性
+    // 小写数组转大写
     const rule = /[a-z]/i;
     const stringArrCaps = this.stringArr.map(item => {
       if (rule.test(item)) {
@@ -515,6 +516,7 @@ class SecurityKeyboard extends Component {
               cursorLock={this.state.cursorLock}
               style={this.props.style}
               valueStyle={this.props.valueStyle}
+              cursorStyle={this.props.cursorStyle}
               show={this.show.bind(this)}
               placeholder={this.props.placeholder}
               placeholderTextColor={this.props.placeholderTextColor}
