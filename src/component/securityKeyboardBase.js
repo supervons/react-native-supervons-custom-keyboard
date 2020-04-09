@@ -14,12 +14,13 @@ import {
   Image,
   UIManager,
   findNodeHandle,
-  Keyboard
+  Keyboard,
+  Dimensions
 } from 'react-native';
 import styles from '../style/securityKeyboard';
 import SecurityKeyboardInput from './securityKeyboardInput';
 import PropTypes from 'prop-types';
-const {width,height} = require('Dimensions').get('window');
+const {width,height} = Dimensions.get('window');
 
 
 class SecurityKeyboard extends Component {
