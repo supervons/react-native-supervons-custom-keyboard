@@ -50,7 +50,7 @@ class SecurityKeyboard extends Component {
       caretHidden: false, //隐藏光标
       secureTextEntry: false, //密码模式
       keyboardType: this.props.keyboardType,
-      valueArr: this.props.value, //文字,
+      valueArr: this.props.value || [], //文字,
       currentArr: [],
       //键盘数组
       cursorLock: true //光标锁
