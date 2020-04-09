@@ -1,3 +1,7 @@
-import SecurityKeyboard from './src/component/keyboardMethods';
+import SecurityKeyboardInput from './src/component/keyboardMethods';
+import ParcelKeyboardView from './src/component/ParcelKeyboardView'
 
-export default SecurityKeyboard;
+export {
+    SecurityKeyboardInput,
+    ParcelKeyboardView
+};

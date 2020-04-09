@@ -11,11 +11,16 @@ import {
   Icon,
   TouchableHighlight,
   DeviceEventEmitter,
-  Image
+  Image,
+  UIManager,
+  findNodeHandle,
+  Keyboard
 } from 'react-native';
 import styles from '../style/securityKeyboard';
 import SecurityKeyboardInput from './securityKeyboardInput';
 import PropTypes from 'prop-types';
+const {width,height} = require('Dimensions').get('window');
+
 
 class SecurityKeyboard extends Component {
   static propTypes = {
@@ -45,7 +50,7 @@ class SecurityKeyboard extends Component {
       caretHidden: false, //隐藏光标
       secureTextEntry: false, //密码模式
       keyboardType: this.props.keyboardType,
-      valueArr: [], //文字,
+      valueArr: this.props.value, //文字,
       currentArr: [],
       //键盘数组
       cursorLock: true //光标锁
@@ -151,6 +156,21 @@ class SecurityKeyboard extends Component {
       caretHidden: true
     });
     this.changeKey();
+    this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
+    this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
+  }
+
+  _keyboardDidShow =()=> {
+    this.systemKeyboard=true;
+  }
+
+  _keyboardDidHide =()=> {
+    this.systemKeyboard=false;
+  }
+
+  componentWillUnmount () {
+    this.keyboardDidShowListener.remove();
+    this.keyboardDidHideListener.remove();
   }
 
   changeKey() {
@@ -158,7 +178,7 @@ class SecurityKeyboard extends Component {
     this.setChangeDateNum();
     // currentNumArr.push(...['.', 'del', 'ABC', '!?#']);
     this.stringArr = this.props.random ? this.shuffle(this.stringArr) : this.stringArr;
-    // 小写数组转大写
+    // 小写数组转大写69
     const rule = /[a-z]/i;
     const stringArrCaps = this.stringArr.map(item => {
       if (rule.test(item)) {
@@ -187,11 +207,21 @@ class SecurityKeyboard extends Component {
 
   //显示键盘
   show() {
+    if (this.systemKeyboard){
+      Keyboard.dismiss();
+      return
+    };
     this.modalVisible = true;
     this.setState({
       cursorLock: false
     });
     this.onFocus();
+    let timer = setTimeout(()=>{
+      UIManager.measure(findNodeHandle(this.refs.keyboardWrap),(x, y, widths, heights)=>{
+        DeviceEventEmitter.emit('_keyboardDidShow',{"endCoordinates":{"screenX":0,"height":285,"width":widths,"screenY":height-heights},'isLoadKeyBoard':true});
+      })
+      clearTimeout(timer);
+    },50);
   }
 
   //隐藏键盘
@@ -202,11 +232,12 @@ class SecurityKeyboard extends Component {
       keyboardType: this.props.keyboardType
     });
     this.onBlur();
+    DeviceEventEmitter.emit('_keyboardDidHide',null);
   }
 
   //发送事件 附带input内容
   inputEvent(value) {
-    DeviceEventEmitter.emit('securityKeyboardInput', value);
+    DeviceEventEmitter.emit('securityKeyboardInput', {'isLoadKeyBoard':"load"});
     this.onChangeText(value);
   }
 
@@ -294,7 +325,7 @@ class SecurityKeyboard extends Component {
   addItemImageView(index, itemParent, sty, path, fun, funlong) {
     return (
         <TouchableHighlight style={itemParent} underlayColor="#cccccc" key={index} onPress={fun} onLongPress={funlong}>
-          <Image style={sty} source={path} />
+          <Image style={sty} source={path} resizeMode='contain' />
         </TouchableHighlight>
     );
   }
@@ -309,28 +340,32 @@ class SecurityKeyboard extends Component {
   }
   //改变数字的数据
   setChangeDateNum() {
-    this.numArr.splice(this.numArr.length - 1, 0, require('../images/back.png'));
-    this.numArr.push(require('../images/icon-delete.png'));
+    let arr =  this.props.imageArr;
+
+    this.numArr.splice(this.numArr.length - 1, 0,arr ? arr.back_image: require('../images/back.png'));
+    this.numArr.push(arr ? arr.delete_image:require('../images/icon-delete.png'));
   }
 
   //改变字母的数据
   setChangeDateString(stringArr, isUp) {
+    let arr =  this.props.imageArr;
     if (isUp) {
-      stringArr.splice(19, 0, require('../images/transform2.png'));
+      stringArr.splice(19, 0, arr ? arr.transform2_image : require('../images/transform2.png'));
     } else {
-      stringArr.splice(19, 0, require('../images/transform.png'));
+      stringArr.splice(19, 0, arr ? arr.transform_image : require('../images/transform.png'));
     }
-    stringArr.push(require('../images/icon-delete.png'));
+    stringArr.push(arr ? arr.delete_image :require('../images/icon-delete.png'));
     stringArr.push('123');
-    stringArr.push(require('../images/space.png'));
+    stringArr.push(arr ? arr.space_image : require('../images/space.png'));
     stringArr.push('符');
   }
 
   //改变符号的数据
   setChangeDateSymbol() {
-    this.symbolArr.push(require('../images/back.png'));
-    this.symbolArr.push(require('../images/space.png'));
-    this.symbolArr.push(require('../images/icon-delete.png'));
+    let arr =  this.props.imageArr;
+    this.symbolArr.push(arr ? arr.back_image : require('../images/back.png'));
+    this.symbolArr.push(arr ? arr.space_image :require('../images/space.png'));
+    this.symbolArr.push(arr ? arr.delete_image :require('../images/icon-delete.png'));
   }
 
   renderNum() {
@@ -508,7 +543,7 @@ class SecurityKeyboard extends Component {
 
   render() {
     return (
-        <View>
+        <View >
           <SecurityKeyboardInput
               disabled={this.props.disabled}
               caretHidden={this.state.caretHidden}
@@ -542,7 +577,7 @@ class SecurityKeyboard extends Component {
                   }}
                   onPress={this.hide.bind(this)}
               />
-              <View style={styles.keyboardWrap}>
+              <View style={styles.keyboardWrap} ref="keyboardWrap">
                 <View style={styles.headerWrap}>
                   {this.props.keyboardHeader ? (
                       this.props.keyboardHeader

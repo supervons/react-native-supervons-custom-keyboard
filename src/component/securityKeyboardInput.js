@@ -8,7 +8,7 @@ class SecurityKeyboardInput extends Component {
     super(props);
     this.state = {
       fadeAnim: new Animated.Value(0), //动画
-      valueArr: [] //文字,
+      valueArr: this.props.value //文字,
     };
   }
   componentDidMount() {

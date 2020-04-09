@@ -3,6 +3,7 @@ import React from 'react';
 import SecurityKeyboard from './securityKeyboardBase';
 
 class SecurityKeyboardMethods extends SecurityKeyboard {
+
   constructor(props) {
     super(props);
   }

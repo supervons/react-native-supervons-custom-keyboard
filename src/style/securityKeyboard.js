@@ -97,8 +97,8 @@ const Styles = StyleSheet.create({
     height: px2dp(32)
   },
   transformIcon: {
-    width: px2dp(42),
-    height: px2dp(42)
+    width: px2dp(40),
+    height: px2dp(45)
   },
   backIcon: {
     width: px2dp(40),
@@ -107,7 +107,7 @@ const Styles = StyleSheet.create({
   spaceIcon: {
     marginTop: 20,
     width: px2dp(200),
-    height: 10
+    height: 200
   },
   itemNumParentImage: {
     backgroundColor: '#BDC5D3'
