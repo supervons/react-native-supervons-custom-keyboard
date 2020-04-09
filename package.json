@@ -1,6 +1,6 @@
 {
   "name": "react-native-supervons-custom-keyboard",
-  "version": "1.3.4",
+  "version": "1.3.5",
   "description": "A JS keyboard with uppercase and lowercase letters, numbers and some symbols.\n",
   "main": "index.js",
   "scripts": {
