@@ -1,19 +1,12 @@
-'use strict';
 
 const createReactClass = require('create-react-class');
-const Keyboard = require('Keyboard');
-const LayoutAnimation = require('LayoutAnimation');
-const Platform = require('Platform');
+import { Keyboard, LayoutAnimation, Platform, View, ViewPropTypes, DeviceEventEmitter } from 'react-native';
+import { React } from 'react';
 const PropTypes = require('prop-types');
-const React = require('React');
 /* $FlowFixMe(>=0.54.0 site=react_native_oss) This comment suppresses an error
  * found when Flow v0.54 was deployed. To see the error delete this comment and
  * run Flow. */
 const TimerMixin = require('react-timer-mixin');
-const View = require('View');
-const ViewPropTypes = require('ViewPropTypes');
-
-const DeviceEventEmitter = require('RCTDeviceEventEmitter');
 
 import type EmitterSubscription from 'EmitterSubscription';
 import type {ViewLayout, ViewLayoutEvent} from 'ViewPropTypes';
@@ -127,94 +120,94 @@ const ParcelKeyboardView = createReactClass({
     },
 
     UNSAFE_componentWillUpdate(nextProps: Object, nextState: Object, nextContext?: Object): void {
-        if (nextState.bottom === this.state.bottom &&
-            this.props.behavior === 'height' &&
-            nextProps.behavior === 'height') {
-            // If the component rerenders without an internal state change, e.g.
-            // triggered by parent component re-rendering, no need for bottom to change.
-            nextState.bottom = 0;
+    if (nextState.bottom === this.state.bottom &&
+        this.props.behavior === 'height' &&
+        nextProps.behavior === 'height') {
+    // If the component rerenders without an internal state change, e.g.
+    // triggered by parent component re-rendering, no need for bottom to change.
+    nextState.bottom = 0;
+}
+},
+
+UNSAFE_componentWillMount() {
+    if (Platform.OS === 'ios') {
+        this.subscriptions = [
+            Keyboard.addListener('keyboardWillChangeFrame', this._onKeyboardChange),
+        ];
+    } else {
+        this.subscriptions = [
+            Keyboard.addListener('keyboardDidHide', this._onKeyboardChange),
+            Keyboard.addListener('keyboardDidShow', this._onKeyboardChange),
+        ];
+    }
+    this.subscriptions.push(DeviceEventEmitter.addListener('_keyboardDidHide', this._onKeyboardChange))
+    this.subscriptions.push(DeviceEventEmitter.addListener('_keyboardDidShow', this._onKeyboardChange))
+},
+
+componentWillUnmount() {
+    this.subscriptions.forEach((sub) => sub.remove());
+},
+
+render(): React.Element<any> {
+    // $FlowFixMe(>=0.41.0)
+    const {behavior, children, style, ...props} = this.props;
+const bottomHeight = this.props.enabled ? this.state.bottom : 0;
+switch (behavior) {
+    case 'height':
+        let heightStyle;
+        if (this.frame) {
+            // Note that we only apply a height change when there is keyboard present,
+            // i.e. this.state.bottom is greater than 0. If we remove that condition,
+            // this.frame.height will never go back to its original value.
+            // When height changes, we need to disable flex.
+            heightStyle = {height: this.frame.height - bottomHeight, flex: 0};
         }
-    },
+        return (
+            <View style={{flex: 1}}>
+                <View ref={viewRef} style={[style, heightStyle]} onLayout={this._onLayout} {...props}>
+                    {children}
+                </View>
+                { this.isLoadKeyBoard?<View style={{height: bottomHeight}}/>:null}
+            </View>
+        );
 
-    UNSAFE_componentWillMount() {
-        if (Platform.OS === 'ios') {
-            this.subscriptions = [
-                Keyboard.addListener('keyboardWillChangeFrame', this._onKeyboardChange),
-            ];
-        } else {
-            this.subscriptions = [
-                Keyboard.addListener('keyboardDidHide', this._onKeyboardChange),
-                Keyboard.addListener('keyboardDidShow', this._onKeyboardChange),
-            ];
-        }
-        this.subscriptions.push(DeviceEventEmitter.addListener('_keyboardDidHide', this._onKeyboardChange))
-        this.subscriptions.push(DeviceEventEmitter.addListener('_keyboardDidShow', this._onKeyboardChange))
-    },
+    case 'position':
+        const positionStyle = {bottom: bottomHeight};
+        const {contentContainerStyle} = this.props;
 
-    componentWillUnmount() {
-        this.subscriptions.forEach((sub) => sub.remove());
-    },
-
-    render(): React.Element<any> {
-        // $FlowFixMe(>=0.41.0)
-        const {behavior, children, style, ...props} = this.props;
-        const bottomHeight = this.props.enabled ? this.state.bottom : 0;
-        switch (behavior) {
-            case 'height':
-                let heightStyle;
-                if (this.frame) {
-                    // Note that we only apply a height change when there is keyboard present,
-                    // i.e. this.state.bottom is greater than 0. If we remove that condition,
-                    // this.frame.height will never go back to its original value.
-                    // When height changes, we need to disable flex.
-                    heightStyle = {height: this.frame.height - bottomHeight, flex: 0};
-                }
-                return (
-                    <View style={{flex: 1}}>
-                        <View ref={viewRef} style={[style, heightStyle]} onLayout={this._onLayout} {...props}>
-                            {children}
-                        </View>
-                        { this.isLoadKeyBoard?<View style={{height: bottomHeight}}/>:null}
+        return (
+            <View style={{flex: 1}}>
+                <View ref={viewRef} style={style} onLayout={this._onLayout} {...props}>
+                    <View style={[contentContainerStyle, positionStyle]}>
+                        {children}
                     </View>
-                );
+                </View>
+                { this.isLoadKeyBoard?<View style={{height: bottomHeight}}/>:null}
+            </View>
+        );
 
-            case 'position':
-                const positionStyle = {bottom: bottomHeight};
-                const {contentContainerStyle} = this.props;
+    case 'padding':
+        const paddingStyle = {paddingBottom: bottomHeight};
+        return (
+            <View style={{flex: 1}}>
+                <View ref={viewRef} style={[style, paddingStyle]} onLayout={this._onLayout} {...props}>
+                    {children}
+                </View>
+                { this.isLoadKeyBoard?<View style={{height: bottomHeight}}/>:null}
+            </View>
+        );
 
-                return (
-                    <View style={{flex: 1}}>
-                        <View ref={viewRef} style={style} onLayout={this._onLayout} {...props}>
-                            <View style={[contentContainerStyle, positionStyle]}>
-                                {children}
-                            </View>
-                        </View>
-                        { this.isLoadKeyBoard?<View style={{height: bottomHeight}}/>:null}
-                    </View>
-                );
-
-            case 'padding':
-                const paddingStyle = {paddingBottom: bottomHeight};
-                return (
-                    <View style={{flex: 1}}>
-                        <View ref={viewRef} style={[style, paddingStyle]} onLayout={this._onLayout} {...props}>
-                            {children}
-                        </View>
-                        { this.isLoadKeyBoard?<View style={{height: bottomHeight}}/>:null}
-                    </View>
-                );
-
-            default:
-                return (
-                    <View>
-                        <View ref={viewRef} onLayout={this._onLayout} style={style} {...props}>
-                            {children}
-                        </View>
-                        { this.isLoadKeyBoard?<View style={{height: bottomHeight}}/>:null}
-                    </View>
-                );
-        }
-    },
+    default:
+        return (
+            <View>
+                <View ref={viewRef} onLayout={this._onLayout} style={style} {...props}>
+                    {children}
+                </View>
+                { this.isLoadKeyBoard?<View style={{height: bottomHeight}}/>:null}
+            </View>
+        );
+}
+},
 });
 
 module.exports = ParcelKeyboardView;
