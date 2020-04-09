@@ -237,7 +237,7 @@ class SecurityKeyboard extends Component {
 
   //发送事件 附带input内容
   inputEvent(value) {
-    DeviceEventEmitter.emit('securityKeyboardInput', {'isLoadKeyBoard':"load"});
+    DeviceEventEmitter.emit('securityKeyboardInput', value);
     this.onChangeText(value);
   }
 
