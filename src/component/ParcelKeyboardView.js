@@ -163,12 +163,9 @@ switch (behavior) {
             heightStyle = {height: this.frame.height - bottomHeight, flex: 0};
         }
         return (
-            <View style={{flex: 1}}>
                 <View ref={viewRef} style={[style, heightStyle]} onLayout={this._onLayout} {...props}>
                     {children}
                 </View>
-                { this.isLoadKeyBoard?<View style={{height: bottomHeight}}/>:null}
-            </View>
         );
 
     case 'position':
@@ -176,35 +173,26 @@ switch (behavior) {
         const {contentContainerStyle} = this.props;
 
         return (
-            <View style={{flex: 1}}>
                 <View ref={viewRef} style={style} onLayout={this._onLayout} {...props}>
                     <View style={[contentContainerStyle, positionStyle]}>
                         {children}
                     </View>
                 </View>
-                { this.isLoadKeyBoard?<View style={{height: bottomHeight}}/>:null}
-            </View>
         );
 
     case 'padding':
         const paddingStyle = {paddingBottom: bottomHeight};
         return (
-            <View style={{flex: 1}}>
                 <View ref={viewRef} style={[style, paddingStyle]} onLayout={this._onLayout} {...props}>
                     {children}
                 </View>
-                { this.isLoadKeyBoard?<View style={{height: bottomHeight}}/>:null}
-            </View>
         );
 
     default:
         return (
-            <View>
                 <View ref={viewRef} onLayout={this._onLayout} style={style} {...props}>
                     {children}
                 </View>
-                { this.isLoadKeyBoard?<View style={{height: bottomHeight}}/>:null}
-            </View>
         );
 }
 },

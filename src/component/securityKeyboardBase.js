@@ -581,12 +581,12 @@ class SecurityKeyboard extends Component {
               <View style={styles.keyboardWrap} ref="keyboardWrap">
                 <View style={styles.headerWrap}>
                   {this.props.keyboardHeader ? (
-                      this.props.keyboardHeader
+                      this.props.keyboardHeader()
                   ) : (
-                      <Image style={styles.headerImage} source={require('../images/text.png')} />
+                      <Image style={styles.headerImage} source={this.props.imageArr? this.props.imageArr.header_image : require('../images/text.png')} />
                   )}
                   <TouchableOpacity onPress={this.hide.bind(this)} style={styles.closeIconWrap}>
-                    <Image style={styles.closeIcon} source={require('../images/icon-down.png')} />
+                    <Image style={styles.closeIcon} source={this.props.imageArr? this.props.imageArr.down_image : require('../images/icon-down.png')} />
                   </TouchableOpacity>
                 </View>
                 <View style={styles.lengthwaysClass}>{this.renderNum()}</View>
