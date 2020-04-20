@@ -62,6 +62,7 @@ const Styles = StyleSheet.create({
   },
   closeIcon: {
     width: px2dp(30),
+    height:px2dp(30),
     resizeMode: 'contain'
   },
   removeIcon: {
