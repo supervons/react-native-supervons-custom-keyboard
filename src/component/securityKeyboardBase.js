@@ -325,7 +325,7 @@ class SecurityKeyboard extends Component {
   //图片按钮
   addItemImageView(index, itemParent, sty, path, fun, funlong) {
     return (
-        <TouchableHighlight style={itemParent} underlayColor="#cccccc" key={index} onPress={fun} onLongPress={funlong}>
+        <TouchableHighlight style={[itemParent, {overflow:'hidden'}]} underlayColor="#cccccc" key={index} onPress={fun} onLongPress={funlong}>
           <Image style={sty} source={path} resizeMode='contain' />
         </TouchableHighlight>
     );
