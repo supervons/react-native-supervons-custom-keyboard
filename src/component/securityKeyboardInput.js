@@ -75,11 +75,17 @@ class SecurityKeyboardInput extends Component {
       });
     }
   }
-
+  //显示键盘
+  show() {
+    if (this.props.disabled) {
+      return;
+    }
+    this.props.show();
+  }
   render() {
     return (
-        <View style={[styles.view,this.props.style]} {...this.props}>
-          <View style={styles.textInputWrap} >
+        <View style={[styles.view, this.props.style]}>
+          <TouchableOpacity style={styles.textInputWrap} onPress={this.show.bind(this)}>
             {this.renderValue()}
             {this.state.valueArr.length == 0 ? (
                 <Text
@@ -97,7 +103,7 @@ class SecurityKeyboardInput extends Component {
                   <Text style={[styles.cursor, this.props.cursorStyle || {}]}>|</Text>
                 </Animated.View>
             ) : null}
-          </View>
+          </TouchableOpacity>
         </View>
     );
   }
