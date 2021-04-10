@@ -27,7 +27,7 @@ Thanks yanzhandong source sharing
 ```js
 import React, { Component } from 'react';
 import { View, Button } from 'react-native';
-import RNSVCustomKeyboard from 'react-native-supervons-custom-keyboard';
+import { SecurityKeyboardInput } from 'react-native-supervons-custom-keyboard';
 ```
 ```jsx
 export default class MainPage extends Component {
@@ -42,7 +42,7 @@ export default class MainPage extends Component {
     return (
       <View style={{ flex: 1, backgroundColor: '#ffffff' }}>
         <View style={{ height: 150 }}>
-          <RNSVCustomKeyboard
+          <SecurityKeyboardInput
             style={{ width: width * 0.96, borderBottomColor: '#939DA6', borderBottomWidth: 1 }}
             secureTextEntry={true}
             random={true}
@@ -86,4 +86,3 @@ export default class MainPage extends Component {
 | `blur` | none | Lose focus. |
 | `focus` | none | Get the focus. |
 
-  
