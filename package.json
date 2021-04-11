@@ -19,5 +19,17 @@
   "peerDependencies": {
     "react-native": "^0.41.2",
     "react-native-windows": "0.41.0-rc.1"
+  },
+  "prettier": {
+    "singleQuote": false,
+    "semi": false,
+    "tabWidth": 2,
+    "useTabs": false,
+    "trailingComma": "none",
+    "bracketSpacing": true,
+    "arrowParens": "avoid",
+    "jsxBracketSameLine": false,
+    "proseWrap": "preserve",
+    "printWidth": 80
   }
 }
