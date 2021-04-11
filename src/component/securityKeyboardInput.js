@@ -1,48 +1,40 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, Animated, DeviceEventEmitter } from 'react-native';
 
 import styles from '../style/securityKeyboardInput';
 
-class SecurityKeyboardInput extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      fadeAnim: new Animated.Value(0), //动画
-      valueArr: this.props.value || [] //文字
-    };
-  }
-  componentDidMount() {
+function SecurityKeyboardInput(props) {
+  const [fadeAnim, setFadeAnim] = useState(new Animated.Value(0))
+  const [valueArr, setValueArr] = useState(props.value || [])
+
+  useEffect(()=>{
     //监听数据
-    this.inputEvent();
+    inputEvent();
     //执行动画
-    this.animation();
-  }
-  //重置动画
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.cursorLock == false) {
-      this.animation();
-    }
-  }
+    animation();
+    // 在每次渲染产生的 effect 执行之前执行
+    return function cleanup() {
+      DeviceEventEmitter.removeListener("securityKeyboardInput")
+    };
+  }, [])
 
   //接受数据
-  inputEvent() {
-    let that = this;
-    that.subscription = DeviceEventEmitter.addListener('securityKeyboardInput', data => {
-      that.setState({
-        valueArr: data
-      });
+  function inputEvent() {
+    DeviceEventEmitter.addListener('securityKeyboardInput', data => {
+      setValueArr(data)
     });
   }
-  animation() {
+
+  function animation() {
     let that = this;
-    this.animated = Animated.loop(
+    Animated.loop(
         Animated.sequence([
-          Animated.timing(that.state.fadeAnim, {
+          Animated.timing(fadeAnim, {
             toValue: 1,
             duration: 600,
             seNativeDriver: true
           }),
-          Animated.timing(that.state.fadeAnim, {
+          Animated.timing(fadeAnim, {
             toValue: 0,
             duration: 600,
             seNativeDriver: true
@@ -53,22 +45,20 @@ class SecurityKeyboardInput extends Component {
         }
     ).start();
   }
-  componentWillUnmount() {
-    this.subscription.remove();
-  }
-  renderValue() {
-    if (this.props.secureTextEntry) {
-      return this.state.valueArr.map((item, index) => {
+
+  function renderValue() {
+    if (props.secureTextEntry) {
+      return valueArr.map((item, index) => {
         return (
-            <Text style={[styles.value, this.props.secureTextStyle]} key={index}>
+            <Text style={[styles.value, props.secureTextStyle]} key={index}>
               ●
             </Text>
         );
       });
     } else {
-      return this.state.valueArr.map((item, index) => {
+      return valueArr.map((item, index) => {
         return (
-            <Text style={[styles.value, this.props.valueStyle]} key={index}>
+            <Text style={[styles.value, props.valueStyle]} key={index}>
               {item}
             </Text>
         );
@@ -76,37 +66,36 @@ class SecurityKeyboardInput extends Component {
     }
   }
   //显示键盘
-  show() {
-    if (this.props.disabled) {
+  function show() {
+    if (props.disabled) {
       return;
     }
-    this.props.show();
+    props.show();
   }
-  render() {
-    return (
-        <View style={[styles.view, this.props.style]}>
-          <TouchableOpacity style={styles.textInputWrap} onPress={this.show.bind(this)}>
-            {this.renderValue()}
-            {this.state.valueArr.length == 0 ? (
-                <Text
-                    style={[
-                      styles.placeholder,
-                      this.props.valueStyle || {},
-                      { color: this.props.placeholderTextColor || '#C4C4C4' }
-                    ]}
-                >
-                  {this.props.placeholder || '请输入内容'}
-                </Text>
-            ) : null}
-            {!this.props.cursorLock && !this.props.caretHidden ? (
-                <Animated.View style={[styles.cursorWrap, { opacity: this.state.fadeAnim }]}>
-                  <Text style={[styles.cursor, this.props.cursorStyle || {}]}>|</Text>
-                </Animated.View>
-            ) : null}
-          </TouchableOpacity>
-        </View>
-    );
-  }
+
+  return (
+      <View style={[styles.view, props.style]}>
+        <TouchableOpacity style={styles.textInputWrap} onPress={show.bind(this)}>
+          {renderValue()}
+          {valueArr.length == 0 ? (
+              <Text
+                  style={[
+                    styles.placeholder,
+                    props.valueStyle || {},
+                    { color: props.placeholderTextColor || '#C4C4C4' }
+                  ]}
+              >
+                {props.placeholder || '请输入内容'}
+              </Text>
+          ) : null}
+          {!props.cursorLock && !props.caretHidden ? (
+              <Animated.View style={[styles.cursorWrap, { opacity: fadeAnim }]}>
+                <Text style={[styles.cursor, props.cursorStyle || {}]}>|</Text>
+              </Animated.View>
+          ) : null}
+        </TouchableOpacity>
+      </View>
+  );
 }
 
 export default SecurityKeyboardInput;
