@@ -25,7 +25,9 @@ function SecurityKeyboardInput(props) {
   }, [])
 
   useEffect(() => {
-    animation()
+    if (!props.cursorLock) {
+      animation()
+    }
   }, [props.cursorLock])
 
   //接受数据
