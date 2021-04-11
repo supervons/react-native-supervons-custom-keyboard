@@ -1,7 +1,4 @@
-import SecurityKeyboardInput from './src/component/keyboardMethods';
-import ParcelKeyboardView from './src/component/ParcelKeyboardView'
+import SecurityKeyboardInput from "./src/component/keyboardMethods"
+import ParcelKeyboardView from "./src/component/ParcelKeyboardView"
 
-export {
-    SecurityKeyboardInput,
-    ParcelKeyboardView
-};
+export { SecurityKeyboardInput, ParcelKeyboardView }
