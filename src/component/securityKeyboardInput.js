@@ -32,9 +32,12 @@ function SecurityKeyboardInput(props) {
 
   //接受数据
   function inputEvent() {
-    DeviceEventEmitter.addListener("securityKeyboardInput", data => {
-      setValueArr(data)
-    })
+    DeviceEventEmitter.addListener(
+      props.keyName || "keyboardListener",
+      data => {
+        setValueArr(data)
+      }
+    )
   }
 
   function animation() {
