@@ -24,6 +24,7 @@ const { width, height } = Dimensions.get("window")
 
 class SecurityKeyboard extends Component {
   static propTypes = {
+    key: PropTypes.string,
     keyboardHeader: PropTypes.element, //配置键盘头部
     value: PropTypes.any, //内容
     placeholder: PropTypes.string, //提示文字
@@ -258,7 +259,7 @@ class SecurityKeyboard extends Component {
 
   //发送事件 附带input内容
   inputEvent(value) {
-    DeviceEventEmitter.emit("securityKeyboardInput", value)
+    DeviceEventEmitter.emit(this.props.keyName || "keyboardListener", value)
     this.onChangeText(value)
   }
 
@@ -608,6 +609,7 @@ class SecurityKeyboard extends Component {
     return (
       <View>
         <SecurityKeyboardInput
+          keyName={this.props.keyName}
           disabled={this.props.disabled}
           caretHidden={this.state.caretHidden}
           secureTextEntry={this.props.secureTextEntry}

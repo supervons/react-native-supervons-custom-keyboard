@@ -60,6 +60,16 @@ export default class MainPage extends Component {
   }
 }
 ```
+
+### Multiple password Input
+Please add property： keyName, it's unique .
+```jsx
+<SecurityKeyboardInput
+ keyName={'password'}/>
+<SecurityKeyboardInput
+ keyName={'confirmPassword'}/>
+```
+
 ### Props
 
 | **Prop** | **Type** | **Description** |

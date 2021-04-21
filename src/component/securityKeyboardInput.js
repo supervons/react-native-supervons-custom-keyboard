@@ -20,7 +20,7 @@ function SecurityKeyboardInput(props) {
     animation()
     // 在每次渲染产生的 effect 执行之前执行
     return function cleanup() {
-      DeviceEventEmitter.removeListener("securityKeyboardInput")
+      DeviceEventEmitter.removeListener(props.keyName || "keyboardListener")
     }
   }, [])
 

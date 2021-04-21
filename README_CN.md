@@ -60,6 +60,16 @@ export default class MainPage extends Component {
   }
 }
 ```
+
+### 同页面展示多个密码框
+请添加 keyName 属性并保证唯一
+```jsx
+<SecurityKeyboardInput
+    keyName={'password'}/>
+<SecurityKeyboardInput
+    keyName={'confirmPassword'}/>
+```
+
 ### 属性
 
 | **属性** | **类型** | **简述** |
