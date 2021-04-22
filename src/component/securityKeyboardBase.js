@@ -353,7 +353,9 @@ class SecurityKeyboard extends Component {
         onPress={fun}
         onLongPress={funlong}
       >
-        <Image style={sty} source={path} resizeMode="contain" />
+        {typeof path !== "string" && (
+          <Image style={sty} source={path} resizeMode="contain" />
+        )}
       </TouchableHighlight>
     )
   }
@@ -406,7 +408,7 @@ class SecurityKeyboard extends Component {
     )
     stringArr.push("123")
     stringArr.push(arr ? arr.space_image : require("../images/space.png"))
-    stringArr.push("符")
+    stringArr.push("#+=")
   }
 
   //改变符号的数据

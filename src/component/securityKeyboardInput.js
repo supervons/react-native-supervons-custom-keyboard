@@ -47,12 +47,12 @@ function SecurityKeyboardInput(props) {
         Animated.timing(fadeAnim, {
           toValue: 1,
           duration: 600,
-          seNativeDriver: true
+          useNativeDriver: true
         }),
         Animated.timing(fadeAnim, {
           toValue: 0,
           duration: 600,
-          seNativeDriver: true
+          useNativeDriver: true
         })
       ]),
       {
