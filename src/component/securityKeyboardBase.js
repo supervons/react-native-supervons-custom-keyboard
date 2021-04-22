@@ -1,13 +1,9 @@
 import React, { Component } from "react"
 import {
-  StyleSheet,
   View,
   Text,
-  TextInput,
   TouchableOpacity,
-  Animated,
   Modal,
-  Button,
   Icon,
   TouchableHighlight,
   DeviceEventEmitter,
@@ -19,8 +15,9 @@ import {
 } from "react-native"
 import styles from "../style/securityKeyboard"
 import SecurityKeyboardInput from "./securityKeyboardInput"
+import { keyboardJSON } from "../resource/json/keyboard"
 import PropTypes from "prop-types"
-const { width, height } = Dimensions.get("window")
+const { height } = Dimensions.get("window")
 
 class SecurityKeyboard extends Component {
   static propTypes = {
@@ -56,93 +53,10 @@ class SecurityKeyboard extends Component {
       //键盘数组
       cursorLock: true //光标锁
     }
-
-    this.numArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0] //键盘数组
-    this.symbolArr = [
-      "&",
-      '"',
-      ";",
-      "^",
-      ",",
-      "|",
-      "$",
-      "*",
-      ":",
-      "(",
-      ")",
-      "{",
-      "}",
-      "[",
-      "]",
-      "-",
-      "+",
-      "=",
-      "_",
-      "\\",
-      "/",
-      "!",
-      "?",
-      "~",
-      "#",
-      "%",
-      "."
-    ] //键盘数组
-    this.stringArr = [
-      "q",
-      "w",
-      "e",
-      "r",
-      "t",
-      "y",
-      "u",
-      "i",
-      "o",
-      "p",
-      "a",
-      "s",
-      "d",
-      "f",
-      "g",
-      "h",
-      "j",
-      "k",
-      "l",
-      "z",
-      "x",
-      "c",
-      "v",
-      "b",
-      "n",
-      "m"
-    ]
-    this.stringArrUp = [
-      "Q",
-      "W",
-      "E",
-      "R",
-      "T",
-      "Y",
-      "U",
-      "I",
-      "O",
-      "P",
-      "A",
-      "S",
-      "D",
-      "F",
-      "G",
-      "H",
-      "J",
-      "K",
-      "L",
-      "Z",
-      "X",
-      "C",
-      "V",
-      "B",
-      "N",
-      "M"
-    ]
+    this.numArr = [...keyboardJSON.numArr] //键盘数组
+    this.symbolArr = [...keyboardJSON.symbolArr] //键盘数组
+    this.stringArr = [...keyboardJSON.stringArr]
+    this.stringArrUp = [...keyboardJSON.stringArrUp]
   }
 
   componentDidMount() {
@@ -380,10 +294,10 @@ class SecurityKeyboard extends Component {
     this.numArr.splice(
       this.numArr.length - 1,
       0,
-      arr ? arr.back_image : require("../images/back.png")
+      arr ? arr.back_image : require("../resource/images/back.png")
     )
     this.numArr.push(
-      arr ? arr.delete_image : require("../images/icon-delete.png")
+      arr ? arr.delete_image : require("../resource/images/icon-delete.png")
     )
   }
 
@@ -394,30 +308,38 @@ class SecurityKeyboard extends Component {
       stringArr.splice(
         19,
         0,
-        arr ? arr.transform2_image : require("../images/transform2.png")
+        arr
+          ? arr.transform2_image
+          : require("../resource/images/transform2.png")
       )
     } else {
       stringArr.splice(
         19,
         0,
-        arr ? arr.transform_image : require("../images/transform.png")
+        arr ? arr.transform_image : require("../resource/images/transform.png")
       )
     }
     stringArr.push(
-      arr ? arr.delete_image : require("../images/icon-delete.png")
+      arr ? arr.delete_image : require("../resource/images/icon-delete.png")
     )
     stringArr.push("123")
-    stringArr.push(arr ? arr.space_image : require("../images/space.png"))
+    stringArr.push(
+      arr ? arr.space_image : require("../resource/images/space.png")
+    )
     stringArr.push("#+=")
   }
 
   //改变符号的数据
   setChangeDateSymbol() {
     let arr = this.props.imageArr
-    this.symbolArr.push(arr ? arr.back_image : require("../images/back.png"))
-    this.symbolArr.push(arr ? arr.space_image : require("../images/space.png"))
     this.symbolArr.push(
-      arr ? arr.delete_image : require("../images/icon-delete.png")
+      arr ? arr.back_image : require("../resource/images/back.png")
+    )
+    this.symbolArr.push(
+      arr ? arr.space_image : require("../resource/images/space.png")
+    )
+    this.symbolArr.push(
+      arr ? arr.delete_image : require("../resource/images/icon-delete.png")
     )
   }
 
@@ -651,7 +573,7 @@ class SecurityKeyboard extends Component {
                 ) : (
                   <Image
                     style={styles.headerImage}
-                    source={require("../images/text.png")}
+                    source={require("../resource/images/text.png")}
                   />
                 )}
                 <TouchableOpacity

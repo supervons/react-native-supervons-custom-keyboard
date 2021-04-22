@@ -8,7 +8,8 @@ function px2dp(px) {
 
 const styles = StyleSheet.create({
   view: {
-    width: "100%"
+    width: "100%",
+    paddingRight: 20
   },
   textInputWrap: {
     height: 40,

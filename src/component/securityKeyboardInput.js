@@ -1,3 +1,9 @@
+/**
+ *
+ * Keyboard input component base on hook.
+ * Using Animated makes cursor flashing.
+ * @Author supervons
+ */
 import React, { useState, useEffect } from "react"
 import {
   View,
@@ -10,27 +16,30 @@ import {
 import styles from "../style/securityKeyboardInput"
 
 function SecurityKeyboardInput(props) {
-  const [fadeAnim, setFadeAnim] = useState(new Animated.Value(0))
+  const [fadeAnim] = useState(new Animated.Value(0))
   const [valueArr, setValueArr] = useState(props.value || [])
 
   useEffect(() => {
-    //监听数据
+    // Monitoring data
     inputEvent()
-    //执行动画
+    // Perform the animation
     animation()
-    // 在每次渲染产生的 effect 执行之前执行
+    // Execute before each rendering effect is executed
     return function cleanup() {
       DeviceEventEmitter.removeListener(props.keyName || "keyboardListener")
     }
   }, [])
 
+  /**
+   * Listen for the cursor and reset the animation Hook.
+   */
   useEffect(() => {
     if (!props.cursorLock) {
       animation()
     }
   }, [props.cursorLock])
 
-  //接受数据
+  // Receive data
   function inputEvent() {
     DeviceEventEmitter.addListener(
       props.keyName || "keyboardListener",
@@ -41,7 +50,6 @@ function SecurityKeyboardInput(props) {
   }
 
   function animation() {
-    let that = this
     Animated.loop(
       Animated.sequence([
         Animated.timing(fadeAnim, {
@@ -62,24 +70,15 @@ function SecurityKeyboardInput(props) {
   }
 
   function renderValue() {
-    if (props.secureTextEntry) {
-      return valueArr.map((item, index) => {
-        return (
-          <Text style={[styles.value, props.secureTextStyle]} key={index}>
-            ●
-          </Text>
-        )
-      })
-    } else {
-      return valueArr.map((item, index) => {
-        return (
-          <Text style={[styles.value, props.valueStyle]} key={index}>
-            {item}
-          </Text>
-        )
-      })
-    }
+    return valueArr.map((item, index) => {
+      return (
+        <Text key={`${index}-${item}`}>
+          {props.secureTextEntry ? "●" : item}
+        </Text>
+      )
+    })
   }
+
   //显示键盘
   function show() {
     if (props.disabled) {
@@ -88,10 +87,22 @@ function SecurityKeyboardInput(props) {
     props.show()
   }
 
+  /**
+   * According props.secureTextEntry to displays user input or displays as a dot ●
+   */
   return (
     <View style={[styles.view, props.style]}>
       <TouchableOpacity style={styles.textInputWrap} onPress={show.bind(this)}>
-        {renderValue()}
+        <Text
+          numberOfLines={1}
+          ellipsizeMode={"clip"}
+          style={[
+            styles.value,
+            props.secureTextEntry ? props.secureTextStyle : props.valueStyle
+          ]}
+        >
+          {renderValue()}
+        </Text>
         {valueArr.length == 0 ? (
           <Text
             style={[
