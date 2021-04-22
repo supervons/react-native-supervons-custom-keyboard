@@ -17,8 +17,8 @@ Developed based on react-native-security-keyboard,add：
 Thanks yanzhandong source sharing
 ```
 ## Preview
-![avatar](https://raw.githubusercontent.com/supervons/ImageLibrary/master/react-native-supervons-custom-keyboard/video.gif)
 
+<img src="https://raw.githubusercontent.com/supervons/ImageLibrary/master/react-native-supervons-custom-keyboard/video.gif" alt="iOS 动态图" height="600" align="bottom" />
 <img src="https://raw.githubusercontent.com/supervons/ImageLibrary/master/react-native-supervons-custom-keyboard/demo_iOS.png" alt="iOS地图图片" height="500" align="bottom" /><img src="https://raw.githubusercontent.com/supervons/ImageLibrary/master/react-native-supervons-custom-keyboard/demo_android.png" alt="android地图图片" height="500" align="bottom" />
 
 
