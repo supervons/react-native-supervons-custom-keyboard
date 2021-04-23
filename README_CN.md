@@ -48,6 +48,7 @@ export default class MainPage extends Component {
       <View style={{ flex: 1, backgroundColor: '#ffffff' }}>
         <View style={{ height: 150 }}>
           <SecurityKeyboardInput
+            keyName={'password'}
             style={{ width: width * 0.96, borderBottomColor: '#939DA6', borderBottomWidth: 1 }}
             secureTextEntry={true}
             random={true}
@@ -79,6 +80,7 @@ export default class MainPage extends Component {
 
 | **属性** | **类型** | **简述** |
 |----------|----------|-----------------|
+| `keyName` | `String` | 保持键盘唯一标识，必填属性 |
 | `disabled` | `Boolean` | 禁止输入，默认false |
 | `random` | `Boolean` | 键盘字母、数字随机布局，默认false |
 | `caretHidden` | `Boolean` | 是否隐藏光标，默认false|

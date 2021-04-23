@@ -49,6 +49,7 @@ export default class MainPage extends Component {
       <View style={{ flex: 1, backgroundColor: '#ffffff' }}>
         <View style={{ height: 150 }}>
           <SecurityKeyboardInput
+            keyName={'password'}
             style={{ width: width * 0.96, borderBottomColor: '#939DA6', borderBottomWidth: 1 }}
             secureTextEntry={true}
             random={true}
@@ -80,6 +81,7 @@ Please add property： keyName, it's unique .
 
 | **Prop** | **Type** | **Description** |
 |----------|----------|-----------------|
+| `keyName`              | `String` | Keep the keyboard unique, required. |
 | `disabled` | `Boolean` | prohibit input, The default is false. |
 | `random` | `Boolean` | random keyboard layout, The default is false. |
 | `caretHidden` | `Boolean` | hide cursor, The default is false. |
