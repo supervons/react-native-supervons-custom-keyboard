@@ -1,5 +1,8 @@
 
 # react-native-supervons-custom-keyboard
+[![NPM Version](https://img.shields.io/npm/v/react-native-supervons-custom-keyboard.svg?style=flat)](https://www.npmjs.com/package/react-native-supervons-custom-keyboard)
+[![NPM Version](https://img.shields.io/npm/dm/react-native-supervons-custom-keyboard.svg?style=flat)](https://www.npmjs.com/package/react-native-supervons-custom-keyboard)
+
 English  [简体中文](/README_CN.md "中文介绍")
 
 # github（welcome star━(*｀∀´*)ノ亻!）
