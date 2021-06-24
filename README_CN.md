@@ -26,6 +26,9 @@ https://github.com/supervons/react-native-supervons-custom-keyboard
 ## 预览
 <img src="https://raw.githubusercontent.com/supervons/ImageLibrary/master/react-native-supervons-custom-keyboard/demo_iOS.png" alt="iOS地图图片" height="500" align="bottom" /><img src="https://raw.githubusercontent.com/supervons/ImageLibrary/master/react-native-supervons-custom-keyboard/demo_android.png" alt="android地图图片" height="500" align="bottom" />
 
+## 实战示例
+https://github.com/supervons/ExploreRN/blob/master/src/screens/login/index.js
+
 ## 开始
 
 `$ npm install react-native-supervons-custom-keyboard --save`
