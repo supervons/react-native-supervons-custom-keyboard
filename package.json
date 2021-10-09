@@ -21,7 +21,7 @@
     "react-native-windows": "0.41.0-rc.1"
   },
   "dependencies": {
-    "create-react-class": "^1.2.3"
+    "create-react-class": "^15.5.4"
   },
   "prettier": {
     "singleQuote": false,
