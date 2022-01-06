@@ -21,10 +21,10 @@ Thanks yanzhandong source sharing
 ```
 ## Preview gif
 
-<img src="https://raw.githubusercontent.com/supervons/ImageLibrary/master/react-native-supervons-custom-keyboard/video.gif" alt="iOS 动态图" height="600" align="bottom" />
+<img src="https://cdn.jsdelivr.net/gh/supervons/ImageLibrary@v1.0.0/react-native-supervons-custom-keyboard/video.gif" alt="iOS 动态图" height="600" align="bottom" />
 
 ## Preview
-<img src="https://raw.githubusercontent.com/supervons/ImageLibrary/master/react-native-supervons-custom-keyboard/demo_iOS.png" alt="iOS地图图片" height="500" align="bottom" /><img src="https://raw.githubusercontent.com/supervons/ImageLibrary/master/react-native-supervons-custom-keyboard/demo_android.png" alt="android地图图片" height="500" align="bottom" />
+<img src="https://cdn.jsdelivr.net/gh/supervons/ImageLibrary@v1.0.0/react-native-supervons-custom-keyboard/demo_iOS.png" alt="iOS地图图片" height="500" align="bottom" /><img src="https://cdn.jsdelivr.net/gh/supervons/ImageLibrary@v1.0.0/react-native-supervons-custom-keyboard/demo_android.png" alt="android地图图片" height="500" align="bottom" />
 
 ## DEMO
 https://github.com/supervons/ExploreRN/blob/master/src/screens/login/index.js
