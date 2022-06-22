@@ -109,3 +109,6 @@ export default class MainPage extends Component {
 | `blur` | none | 失去焦点. |
 | `focus` | none | 获得焦点. |
 
+# 待办
+
+- [ ] 支持 Typescript

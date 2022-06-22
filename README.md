@@ -109,3 +109,7 @@ Please add property： keyName, it's unique .
 | `blur` | none | Lose focus. |
 | `focus` | none | Get the focus. |
 
+
+# TODO-LIST
+
+- [ ] Support typescript
