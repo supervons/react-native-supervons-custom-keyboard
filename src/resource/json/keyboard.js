@@ -27,7 +27,10 @@ export const keyboardJSON = {
     "~",
     "#",
     "%",
-    "."
+    ".",
+    "@",
+    "¥",
+    "€"
   ],
   stringArr: [
     "q",

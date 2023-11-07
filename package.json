@@ -18,6 +18,7 @@
   "license": "",
   "peerDependencies": {
     "react-native": "^0.41.2",
+    "deprecated-react-native-prop-types": "^4.1.0",
     "react-native-windows": "0.41.0-rc.1"
   },
   "dependencies": {
