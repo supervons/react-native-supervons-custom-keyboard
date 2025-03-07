@@ -4,13 +4,13 @@
  * Using Animated makes cursor flashing.
  * @Author supervons
  */
-import React, { useState, useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import {
-  View,
+  Animated,
+  DeviceEventEmitter,
   Text,
   TouchableOpacity,
-  Animated,
-  DeviceEventEmitter
+  View
 } from "react-native"
 
 import styles from "../style/securityKeyboardInput"
@@ -20,13 +20,17 @@ function SecurityKeyboardInput(props) {
   const [valueArr, setValueArr] = useState(props.value || [])
 
   useEffect(() => {
-    // Monitoring data
-    inputEvent()
+    const keyboardListener =  DeviceEventEmitter.addListener(
+      props.keyName || "keyboardListener",
+      data => {
+        setValueArr(data)
+      }
+    )
     // Perform the animation
     animation()
     // Execute before each rendering effect is executed
     return function cleanup() {
-      DeviceEventEmitter.removeListener(props.keyName || "keyboardListener")
+      keyboardListener.remove()
     }
   }, [])
 
@@ -38,16 +42,6 @@ function SecurityKeyboardInput(props) {
       animation()
     }
   }, [props.cursorLock])
-
-  // Receive data
-  function inputEvent() {
-    DeviceEventEmitter.addListener(
-      props.keyName || "keyboardListener",
-      data => {
-        setValueArr(data)
-      }
-    )
-  }
 
   function animation() {
     Animated.loop(
